@@ -1,11 +1,15 @@
 package com.miu.waaproject.domain;
-
+import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -13,29 +17,43 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Product {
+    public Product(Long id, String name, String description, double price, boolean isAvailable, String seller_id) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.isAvailable = isAvailable;
+        this.seller_id = seller_id;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false)
+    @NotNull
+    @Size(min=2, max=50)
     private String name;
 
+    @Column(nullable = false)
+    @NotNull
+    @NotEmpty
     private String description;
 
+    @NotNull
     private double price;
 
-    private boolean isAvailable; // purchased or available
+    private boolean isAvailable = true; // purchased or available
+    @NotNull
+    private String seller_id;
 
-    @ManyToOne
-    @JoinColumn(name = "seller_id")
-    private Seller seller;
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @Fetch(FetchMode.JOIN)
+//    @JoinColumn(name = "product_id")
+//    @OneToMany(cascade = CascadeType.ALL,mappedBy = "product")
+//    private List<Review> reviews;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private ProductOrder order;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
-    private List<Review> reviews;
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "product")
+//    private List<Review> reviews;
 }

@@ -1,0 +1,101 @@
+.app {
+  width: 85%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+ul > li {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  padding-right: 20px;
+  font-size: large;
+  text-decoration: none;
+}
+
+@media all and (min-width: 480px) {
+  .Login {
+    padding: 60px 0;
+  }
+
+  .Login form {
+    margin: 0 auto;
+    max-width: 320px;
+  }
+}
+
+.signin {
+  margin-top: 10px !important;
+  margin-bottom: 20px !important;
+}
+
+.card-style {
+  border-top: none;
+}
+
+.product {
+  display: inline-grid;
+  height: 200px;
+  width: 24%;
+  margin-right: 20px;
+  border: 1px solid rgb(202, 199, 199);
+  border-radius: 10px;
+  margin: 10px 4px;
+  padding: 0px 8px;
+}
+
+.input-name {
+  width: 50%;
+}
+
+.form-group, .input-name {
+  margin-top: 15px;
+}
+
+.status {
+  color: red;
+  font-size: small;
+}
+
+.logout {
+  font-size: .8em;
+	position: relative;
+  overflow: hidden;
+  letter-spacing: 1px;
+  border-radius: 5px;
+  border: 1px solid rgb(202, 199, 199);
+}
+
+.address {
+  clear: both;
+  width: 40% !important;
+  float: left;
+  margin-top: 20px;
+}
+
+.address2 {
+  /* clear: both; */
+  width: 40% !important;
+  float: right;
+  margin-top: 20px;
+}
+
+.detail {
+  margin-left: 20px;
+}
+
+.comments, .productDetail {
+  margin-top: 30px;
+}
+
+.review {
+  border: 1px solid rgb(235, 225, 225);
+  background-color: rgb(247, 248, 248);
+  margin-top: 8px;
+  border-radius: 5px;
+}
+
+.add-product {
+  margin-top: 10px;
+}

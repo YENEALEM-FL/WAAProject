@@ -1,11 +1,14 @@
 package com.miu.waaproject.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.*;
+import com.sun.istack.NotNull;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -21,6 +24,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Buyer {
     @Id
     @Column(name = "id", nullable = false)
@@ -28,31 +32,30 @@ public class Buyer {
     private Long id;
 
     @Column(nullable = false)
+    @Size(min=2, max=50)
     private String firstname;
 
     @Column(nullable = false)
+    @Size(min=2, max=50)
     private String lastname;
 
     @Column(unique = true, nullable = false)
+    @Email
     private String email;
 
     @Column(nullable = false)
+    @Transient
+    @Size(min=4, max=50)
     private String password;
-
-    @Column(nullable = false)
-    private boolean approved;
 
     private final String role = "BUYER";
 
-    // One buyer can follow many sellers and one seller can be followed by many buyers
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "followers")
     private Set<Seller> followingSellers = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
-    private List<ProductOrder> orders;
-
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "buyer_id")
+    @Fetch(FetchMode.JOIN)
     private List<Address> addresses;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -60,6 +63,6 @@ public class Buyer {
 
     private Integer points;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "buyer")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "buyer")
     private List<Review> reviews;
 }

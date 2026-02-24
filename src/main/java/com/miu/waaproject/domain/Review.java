@@ -1,11 +1,16 @@
 package com.miu.waaproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  * @ProjectName: IntelliJ IDEA
@@ -25,13 +30,12 @@ public class Review {
     private Long id;
 
     @Column(nullable = false)
+    @Size(min=5, max=1000)
     private String content;
 
     private boolean approved;
 
-    @ManyToOne()
-    @JoinColumn(name = "product_id")
-    private Product product;
+    private long product_id;
 
     @ManyToOne()
     @JoinColumn(name = "buyer_id")
